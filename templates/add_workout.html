@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Dodaj Trening</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>{{ form.date.label }} {{ form.date(class="form-control", type="date") }}</p>
+        <p>{{ form.start_time.label }} {{ form.start_time(class="form-control", type="time") }}</p>
+        <p>{{ form.duration.label }} (w minutach) {{ form.duration(class="form-control") }}</p>
+        <p>{{ form.notes.label }} {{ form.notes(class="form-control") }}</p>
+
+        <h2>Dodaj Ćwiczenia</h2>
+        <div id="exercise-list">
+            <div class="exercise">
+                <label>Partia ciała:</label>
+                <input type="text" name="exercise_body_part" class="form-control">
+                <label>Nazwa ćwiczenia:</label>
+                <input type="text" name="exercise_name" class="form-control">
+                <label>Serie:</label>
+                <input type="number" name="exercise_sets" class="form-control">
+                <label>Powtórzenia:</label>
+                <input type="number" name="exercise_reps" class="form-control">
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-secondary mt-2" onclick="addExercise()">Dodaj kolejne ćwiczenie</button>
+        <p>{{ form.submit(class="btn btn-primary mt-3") }}</p>
+    </form>
+
+    <script>
+        function addExercise() {
+            let div = document.createElement('div');
+            div.classList.add("exercise", "mt-3");
+            div.innerHTML = `
+                <label>Partia ciała:</label>
+                <input type="text" name="exercise_body_part" class="form-control">
+                <label>Nazwa ćwiczenia:</label>
+                <input type="text" name="exercise_name" class="form-control">
+                <label>Serie:</label>
+                <input type="number" name="exercise_sets" class="form-control">
+                <label>Powtórzenia:</label>
+                <input type="number" name="exercise_reps" class="form-control">
+            `;
+            document.getElementById("exercise-list").appendChild(div);
+        }
+    </script>
+{% endblock %}
+
